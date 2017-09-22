@@ -1,0 +1,39 @@
+"mysql": "^2.12.0"
+//#######################################################################################
+create database nodedacs2017;
+grant all privileges on nodedacs2017.* to 'bob' identified by 'bob';
+flush privileges;
+use nodedacs2017;
+create table tbuser (id integer auto_increment primary key, nome varchar(100), sobrenome varchar(100)login varchar(100), senha varchar(100), email varchar(100), data date);
+//#######################################################################################
+var mysql      = require('mysql');
+function dbcomm(){
+	var connection = mysql.createConnection({
+	  host     : 'localhost',
+	  user     : 'root',
+	  password : 'root',
+	  database : 'banco'
+	});
+
+	connection.connect(function(err){
+		if(err) {
+		    console.log("Error connecting database ... nn");    
+		}
+	});
+	return connection;
+}
+
+//#######################################################################################
+var conn = dbcomm();
+conn.query('select id,name,email,phone from contact',
+    function(err,rows,fields){
+        console.log(rows);
+        res.render('contact',{data:rows});
+    }
+);
+//#######################################################################################
+var conn = dbcomm();
+    conn.query('insert into contact(name,email,phone) values(?,?,?)' ,[req.body.name, req.body.email, req.body.phone], function(err,rows,fields){
+		if(err)
+		console.log("Deu caca...");
+);
